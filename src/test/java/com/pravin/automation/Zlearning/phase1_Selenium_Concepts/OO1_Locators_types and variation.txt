@@ -1,0 +1,170 @@
+📘 SELENIUM LOCATORS — A TO Z (PRACTICAL NOTES)
+🔹 1. BASIC LOCATORS (Foundation)
+By.id("id")
+By.name("name")
+By.className("class")
+By.tagName("tag")
+By.linkText("exact text")
+By.partialLinkText("partial text")
+
+👉 Use when:
+
+Attribute is stable
+👉 Avoid when:
+Dynamic IDs / multiple matches
+🔹 2. CSS SELECTOR (FASTER than XPath)
+Basic
+#id
+.class
+tag
+Combination
+input#username
+div.container.active
+Attribute
+input[name='email']
+input[type='text']
+Contains
+input[id*='user']
+Starts with
+input[id^='user']
+Ends with
+input[id$='name']
+
+👉 Use CSS when:
+
+Simple structure
+Performance matters
+
+👉 Avoid when:
+
+Need parent/child traversal (XPath better)
+🔹 3. XPATH (MOST IMPORTANT)
+✅ BASIC XPATH
+//tag[@attr='value']
+✅ TEXT BASED
+//tag[text()='Exact Text']
+//tag[contains(text(),'Partial')]
+
+👉 Problem: fails with split text
+
+✅ DOT (.) — FULL TEXT CONTENT (VERY IMPORTANT)
+//tag[contains(.,'Text')]
+
+👉 Handles:
+
+split text
+nested elements
+✅ NORMALIZE-SPACE (VERY IMPORTANT)
+//tag[normalize-space()='Text']
+//tag[contains(normalize-space(.),'Text')]
+
+👉 Handles:
+
+extra spaces
+line breaks
+✅ ATTRIBUTE FUNCTIONS
+contains
+//tag[contains(@attr,'value')]
+starts-with
+//tag[starts-with(@attr,'val')]
+✅ MULTIPLE CONDITIONS
+//tag[@attr='value' and @type='text']
+//tag[@id='a' or @id='b']
+🔹 4. XPATH AXES (REAL POWER)
+🔥 Parent
+//child/parent::tag
+🔥 Child
+//parent//child
+🔥 Following
+//label[text()='Username']/following::input[1]
+🔥 Preceding
+//input[@id='password']/preceding::label[1]
+🔥 Following-sibling
+//label/following-sibling::input
+🔥 Preceding-sibling
+//input/preceding-sibling::label
+🔹 5. INDEX (USE CAREFULLY)
+(//button)[2]
+
+👉 Weak — avoid if possible
+
+🔹 6. WILDCARD
+//*[@id='value']
+
+👉 Use when tag is unknown
+
+🔹 7. STATE-BASED LOCATORS (VERY IMPORTANT)
+
+Example:
+
+//button[@aria-checked='true']   → checked
+//button[@aria-checked='false']  → unchecked
+
+👉 Used for:
+
+checkbox
+toggle
+radio
+🔹 8. STRUCTURE-BASED LOCATORS (PRO LEVEL)
+//h4[text()='TITLE']/following::div[1]
+//div[@role='radiogroup']//input
+
+👉 Use when:
+
+text changes
+dynamic UI
+🔹 9. COMBINED STRATEGY (REAL WORLD)
+//div[contains(@class,'card')]//button[contains(.,'Submit')]
+
+👉 Combine:
+
+attribute
+structure
+text
+🔹 10. WHAT TO AVOID (VERY IMPORTANT)
+
+❌ Absolute XPath
+
+/html/body/div[2]/div[3]/...
+
+❌ Random index
+
+(//div)[7]
+
+❌ Full class match (Tailwind/React apps)
+
+//div[@class='abc xyz 123']
+
+❌ Dynamic attributes
+
+//div[@data-id='12345']
+🔹 11. LOCATOR PRIORITY (REMEMBER THIS)
+id ✅ (best)
+name
+aria-*
+cssSelector
+xpath
+🔹 12. GOLDEN RULES
+
+👉 1 element → 1 stable locator
+👉 Avoid index unless no option
+👉 Prefer structure over text
+👉 Prefer partial match over exact
+👉 Always test in $x() before coding
+
+************************************************************************
+From personal exercise-
+//li[contains(., 'Login Status: ') and contains (., 'AUTHENTICATED')]
+//li[contains(normalize-space(.), 'Login Status') and contains(normalize-space(.), 'AUTHENTICATED')]
+//h4[text()='AUTHENTICATION STATUS:']/following::li[contains(., 'AUTHENTICATED')]
+(//ul[contains(@class,'text-muted-foreground')]//li)[1]
+//li[starts-with(normalize-space(.), 'Login Status')]
+//h4[text()='AUTHENTICATION STATUS:']/following-sibling::ul//li[1]
+
+
+
+(//div[contains (., 'Selected: ') and contains (., 'enterprise')])[7]
+//label[text()='Enterprise Plan - $49.99/month']/following::div[@class='text-xs text-muted-foreground mt-4' and contains (., 'Selected: ')]
+//div[starts-with(normalize-space(.), 'Selected:')]
+
+*********************************************************

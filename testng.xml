@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Automation Suite">
+
+    <test name="Regression Tests">
+
+        <classes>
+
+            <class name="com.pravin.automation.tests.QAPractice_SingleCheckboxesTest"/>
+            <class name="com.pravin.automation.tests.QAPractice_ButtonsTest"/>
+
+        </classes>
+
+    </test>
+
+</suite>
