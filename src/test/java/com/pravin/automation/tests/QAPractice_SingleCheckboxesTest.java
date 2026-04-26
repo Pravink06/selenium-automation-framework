@@ -63,7 +63,9 @@ public class QAPractice_SingleCheckboxesTest extends BaseTest {
         Assert.assertTrue(submiteverify,"Invalid Result text");
 
         test.pass("Submitted Successfully");
-        log.info("Submit test is visible and verified successfully- Main brach change");
+
+        log.info("Submit test is visible and verified successfully- Feature branch change");
+
         log.info("Closing Checkbox validation");
 
 
