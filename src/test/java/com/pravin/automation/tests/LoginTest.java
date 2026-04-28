@@ -33,6 +33,9 @@ public class LoginTest extends BaseTest {
         test.pass("login Successfully");
         log.info("Log in successfully");
 
+        // Revert code 001
+        //Revert code 002
+
     }
 
     //Negative case
