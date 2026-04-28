@@ -23,7 +23,7 @@ public class ButtonPageTest extends BaseTest {
         public void click_shouldclick (){
         log.info("Clicking on button");
         buttonPage.clickbutton();
-        log.info("Clicked on button and getting text ");
+        log.info("Clicked on button and getting text -Dummy change : Wrong Commit to revert feature ");
         buttonPage.getresulttext();
         String actualClickMessage = buttonPage.getresulttext();
         Assert.assertTrue(actualClickMessage.contains("Submitted"));
