@@ -2,6 +2,8 @@ package com.pravin.automation.tests;
 
 import com.pravin.automation.base.BaseTest;
 import com.pravin.automation.pages.LoginPage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -10,6 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
+    private static final Logger log = LogManager.getLogger(LoginTest.class);
 
     LoginPage loginPage;
 
@@ -22,9 +25,13 @@ public class LoginTest extends BaseTest {
     //Positive case
     @Test
     void validLogin_shouldSucceed(){
+        test.info("Enter Username and password");
+        log.info("Username and Password will be entered");
         loginPage.login("tomsmith" , "SuperSecretPassword!");
 
         Assert.assertTrue(loginPage.isloginsuccessful() , "Login should be successful");
+        test.pass("login Successfully");
+        log.info("Log in successfully");
 
     }
 
