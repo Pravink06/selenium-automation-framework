@@ -33,7 +33,7 @@ public class MouseEventTest extends BaseTest {
         String actulstatus= mouseEventPage.gettooltipstatus();
         Assert.assertTrue(actulstatus.contains("Tooltip Visible"));
         test.pass("Tool tip Visible successfully");
-        log.info("Pr-Demo = Tool tip Visible successfully");
+        log.info("Tool tip is visible. (This log is changed to  Professional commit)");
     }
 
 }
