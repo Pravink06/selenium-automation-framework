@@ -2,6 +2,7 @@ package com.pravin.automation.tests;
 
 import com.pravin.automation.base.BaseTest;
 import com.pravin.automation.pages.LoginPage;
+import com.pravin.automation.testdata.TestData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -16,21 +17,6 @@ public class LoginTest extends BaseTest {
     private static final Logger log = LogManager.getLogger(LoginTest.class);
     LoginPage loginPage;
 
-    //Test Data setup - Beginner level
-    @DataProvider (name = "ValidloginData")
-    public Object [][] getLoginData(){
-        return new Object[][]{
-                {"tomsmith" , "SuperSecretPassword!"},
-        };
-    }
-    @DataProvider (name = "InvalidloginData")
-    public Object [][] getinvalidLoginData(){
-        return new Object[][]{
-                {"tomsmith1" , "SuperSecretPassword!"},
-                {"ABC","xyz"}
-        };
-    }
-
 
     @BeforeMethod
         void init (){
@@ -39,7 +25,7 @@ public class LoginTest extends BaseTest {
     }
 
     //Positive case
-    @Test (dataProvider = "ValidloginData")
+    @Test (dataProvider = "ValidloginData" , dataProviderClass = TestData.class)
     void login_shouldSecceed(String user , String pass){
         test.info("Enter Username and password");
         log.info("Enter Username and password");
@@ -53,7 +39,7 @@ public class LoginTest extends BaseTest {
 
 
     //Negative case
-    @Test (dataProvider = "InvalidloginData")
+    @Test (dataProvider = "InvalidloginData" , dataProviderClass = TestData.class)
     void invalidLogin_shouldError (String user , String pass){
         loginPage.login(user , pass);
 
