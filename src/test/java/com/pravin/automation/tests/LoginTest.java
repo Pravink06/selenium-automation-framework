@@ -9,12 +9,28 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest {
     private static final Logger log = LogManager.getLogger(LoginTest.class);
-
     LoginPage loginPage;
+
+    //Test Data setup - Beginner level
+    @DataProvider (name = "ValidloginData")
+    public Object [][] getLoginData(){
+        return new Object[][]{
+                {"tomsmith" , "SuperSecretPassword!"},
+        };
+    }
+    @DataProvider (name = "InvalidloginData")
+    public Object [][] getinvalidLoginData(){
+        return new Object[][]{
+                {"tomsmith1" , "SuperSecretPassword!"},
+                {"ABC","xyz"}
+        };
+    }
+
 
     @BeforeMethod
         void init (){
@@ -23,25 +39,28 @@ public class LoginTest extends BaseTest {
     }
 
     //Positive case
-    @Test
-    void validLogin_shouldSucceed(){
+    @Test (dataProvider = "ValidloginData")
+    void login_shouldSecceed(String user , String pass){
         test.info("Enter Username and password");
-        log.info("Username and Password will be entered");
-        loginPage.login("tomsmith" , "SuperSecretPassword!");
+        log.info("Enter Username and password");
+        loginPage.login(user,pass);
+        System.out.println("Username is = "+ user +"  "+ "Password is = "+ pass + " ");
 
-        Assert.assertTrue(loginPage.isloginsuccessful() , "Login should be successful");
+        Assert.assertTrue(loginPage.isloginsuccessful());
         test.pass("login Successfully");
         log.info("Log in successfully");
-
     }
 
+
     //Negative case
-    @Test
-    void invalidLogin_shouldError (){
-        loginPage.login("Wrong", "Wrong");
+    @Test (dataProvider = "InvalidloginData")
+    void invalidLogin_shouldError (String user , String pass){
+        loginPage.login(user , pass);
 
         //Assert.assertTrue(loginPage.getmessage().contains("invalid"));
         Assert.assertTrue(loginPage.isloginfailed(), "Login should be fail due to wrong credential");
+        test.pass("Login failed due to wrong data");
+        log.info("Login failed due to wrong data");
     }
 
 

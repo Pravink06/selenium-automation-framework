@@ -51,7 +51,7 @@ public class LoginPage {
 
     //Boolean condition //Framework building mindset
     public boolean isloginsuccessful(){
-        return getmessage().contains("secure area");
+        return getmessage().contains("You logged into a secure area!");
     }
 
     //boolean condition //framework building for negative values
