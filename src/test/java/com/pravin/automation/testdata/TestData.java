@@ -3,18 +3,13 @@ package com.pravin.automation.testdata;
 import org.testng.annotations.DataProvider;
 
 public class TestData {
-    //Test Data setup - Beginner level
-    @DataProvider(name = "ValidloginData")
-    public Object [][] getLoginData(){
+
+    @DataProvider(name = "loginData")
+    public Object[][] loginData(){
         return new Object[][]{
-                {"tomsmith" , "SuperSecretPassword!"},
-        };
-    }
-    @DataProvider (name = "InvalidloginData")
-    public Object [][] getinvalidLoginData(){
-        return new Object[][]{
-                {"tomsmith1" , "SuperSecretPassword!"},
-                {"ABC","xyz"}
+                {"tomsmith", "SuperSecretPassword!", true,  "Valid login"},
+                {"wrongUser", "SuperSecretPassword!", false, "Invalid username"},
+                {"tomsmith", "WrongPassword!", false, "Invalid password"}
         };
     }
 }
