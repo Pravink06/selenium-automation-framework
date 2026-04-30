@@ -3,6 +3,7 @@ package com.pravin.automation.tests;
 import com.pravin.automation.base.BaseTest;
 import com.pravin.automation.pages.LoginPage;
 import com.pravin.automation.testdata.JsonTestData;
+import com.pravin.automation.utils.ConfigReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -17,7 +18,7 @@ public class LoginTestwith_JSON extends BaseTest {
 
     @BeforeMethod
     public void  init (){
-        driver.get("https://the-internet.herokuapp.com/login");
+        driver.get(ConfigReader.get("baseUrl") + "/login");
         loginpagetestJSON = new LoginPage(driver);
     }
 

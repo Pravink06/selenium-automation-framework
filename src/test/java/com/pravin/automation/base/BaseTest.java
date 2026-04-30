@@ -34,7 +34,7 @@ public class BaseTest  {
             extent = ExtentManager.getInstance();
         }
 
-        driver = new ChromeDriver();
+        driver = DriverFactory.createDriver();
         driver.manage().window().maximize();
 
         // Create Test Entry in test report
