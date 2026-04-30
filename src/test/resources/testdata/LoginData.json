@@ -1,0 +1,36 @@
+[
+  {
+    "user" : {
+      "username" : "tomsmith",
+      "password" : "SuperSecretPassword!"
+    },
+    "expected" : {
+      "success" : true,
+      "message" : "secure area"
+    }
+  },
+
+  {
+    "user" : {
+      "username" : "WrongUsername",
+      "password" : "SuperSecretPassword!"
+    },
+    "expected" : {
+      "success" : false,
+      "message" : "invalid"
+    }
+
+  },
+
+  {
+    "user" : {
+      "username" : "tomsmith",
+      "password" : "wrongpassword"
+    },
+    "expected" : {
+      "success" : false,
+      "message" : "invalid"
+    }
+  }
+
+]
