@@ -5,74 +5,77 @@ import com.aventstack.extentreports.ExtentTest;
 import com.pravin.automation.utils.ExtentManager;
 import com.pravin.automation.utils.ScreenshotUtil;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 
+public class BaseTest {
 
-public class BaseTest  {
-
-    protected WebDriver driver;
     protected static ExtentReports extent;
-    protected ExtentTest test;
 
-    @BeforeSuite (alwaysRun = true)
-    public void setupReport(){
-        extent= ExtentManager.getInstance();
+    // ✅ ThreadLocal for ExtentTest
+    private static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
+
+    @BeforeSuite(alwaysRun = true)
+    public void setupReport() {
+        extent = ExtentManager.getInstance();
     }
 
-    @BeforeMethod (alwaysRun = true)
-        public void setup (Method method ){
+    @BeforeMethod(alwaysRun = true)
+    public void setup(Method method) {
 
-        // 🔥 Safety check (VERY IMPORTANT)
         if (extent == null) {
             extent = ExtentManager.getInstance();
         }
 
-        driver = DriverFactory.createDriver();
-        driver.manage().window().maximize();
+        // Driver init
+        DriverFactory.initDriver();
+        DriverFactory.getDriver().manage().window().maximize();
 
-        // Create Test Entry in test report
-        test = extent.createTest(method.getName());
+        // ✅ FIX: set ThreadLocal properly
+        ExtentTest extentTest = extent.createTest(method.getName());
+        test.set(extentTest);
     }
 
+    // ✅ Getter (MANDATORY)
+    public static ExtentTest getTest() {
+        return test.get();
+    }
 
-    @AfterMethod
-    public void tearDown (ITestResult result){
+    @AfterMethod(alwaysRun = true)
+    public void tearDown(ITestResult result) {
+
+        WebDriver driver = DriverFactory.getDriver();
+
         if (result.getStatus() == ITestResult.FAILURE) {
 
-            String screenshotPath =ScreenshotUtil.captureScreenshot(driver, result.getName());
+            String screenshotPath = ScreenshotUtil.captureScreenshot(driver, result.getName());
 
-            test.fail(result.getThrowable());
+            getTest().fail(result.getThrowable());
 
             try {
-                test.addScreenCaptureFromPath(screenshotPath);
+                getTest().addScreenCaptureFromPath(screenshotPath);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         } else if (result.getStatus() == ITestResult.SUCCESS) {
 
-            test.pass("Test Passed");
+            getTest().pass("Test Passed");
 
         } else {
 
-            test.skip("Test Skipped");
+            getTest().skip("Test Skipped");
         }
 
-        if (driver != null) {
-            driver.quit();
-        }
-
+        // Cleanup
+        DriverFactory.quitDriver();
+        test.remove(); // 🔥 VERY IMPORTANT (memory leak prevention)
     }
 
-    @AfterSuite (alwaysRun = true)
-    public void flushReport (){
+    @AfterSuite(alwaysRun = true)
+    public void flushReport() {
         extent.flush();
     }
 }

@@ -2,12 +2,19 @@
 
 <suite name="Automation Suite">
 
-    <test name="Regression Tests">
+    <test name="Regression Tests" parallel="classes" thread-count="2">
 
         <classes>
 
-            <class name="com.pravin.automation.tests.QAPractice_SingleCheckboxesTest"/>
+            <class name="com.pravin.automation.tests.LoginTestwith_JSON"/>
+            <class name="com.pravin.automation.tests.QAPractice_TextinputPage_Test"/>
+            <class name="com.pravin.automation.tests.ButtonPageTest"/>
+            <class name="com.pravin.automation.tests.LoginTestwith_Excel"/>
+            <class name="com.pravin.automation.tests.LoginTestWithMap"/>
+            <class name="com.pravin.automation.tests.MouseEventTest"/>
             <class name="com.pravin.automation.tests.QAPractice_ButtonsTest"/>
+            <class name="com.pravin.automation.tests.QAPractice_SingleCheckboxesTest"/>
+
 
         </classes>
 

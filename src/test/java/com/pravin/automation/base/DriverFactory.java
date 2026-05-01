@@ -6,14 +6,25 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class DriverFactory {
 
-    public static WebDriver createDriver(){
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+
+    public static void initDriver(){
 
         String browser = ConfigReader.get("browser");
 
         if(browser.equalsIgnoreCase("chrome")){
-            return new ChromeDriver();
+            driver.set(new ChromeDriver());
+        } else {
+            throw new RuntimeException("Browser not supported");
         }
+    }
 
-        throw new RuntimeException("Browser not supported");
+    public static WebDriver getDriver(){
+        return driver.get();
+    }
+
+    public static void quitDriver(){
+        driver.get().quit();
+        driver.remove();
     }
 }

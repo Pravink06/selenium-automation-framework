@@ -1,6 +1,7 @@
 package com.pravin.automation.tests;
 
 import com.pravin.automation.base.BaseTest;
+import com.pravin.automation.base.DriverFactory;
 import com.pravin.automation.pages.ButtonPage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,14 +10,14 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class ButtonPageTest extends BaseTest {
-    private static final Logger log = LogManager.getLogger(MouseEventTest.class);
+    private static final Logger log = LogManager.getLogger(ButtonPageTest.class);
     ButtonPage buttonPage;
 
     @BeforeMethod
         public void openURL(){
         log.info("Launching URL");
-        driver.get("https://www.qa-practice.com/elements/button/simple");
-        buttonPage = new ButtonPage(driver);
+        DriverFactory.getDriver().get("qapractiseBaseurl"+"/elements/button/simple");
+        buttonPage = new ButtonPage(DriverFactory.getDriver());
     }
 
     @Test

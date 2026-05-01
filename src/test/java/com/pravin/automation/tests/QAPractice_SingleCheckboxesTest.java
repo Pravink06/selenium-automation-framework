@@ -1,7 +1,9 @@
 package com.pravin.automation.tests;
 
 import com.pravin.automation.base.BaseTest;
+import com.pravin.automation.base.DriverFactory;
 import com.pravin.automation.pages.QAPractice_SingleCheckboxesPage;
+import com.pravin.automation.utils.ConfigReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -15,11 +17,12 @@ public class QAPractice_SingleCheckboxesTest extends BaseTest {
 
     @BeforeMethod
     public void init(){
-        test.info("Init Method running...");
+        BaseTest.getTest().info("Init Method running...");
         log.info("Url is launching...");
 
-        driver.get("https://www.qa-practice.com/elements/checkbox/single_checkbox");
-        qasinglecheckboxpage = new QAPractice_SingleCheckboxesPage(driver) ;
+        DriverFactory.getDriver().get(ConfigReader.get("qapractiseBaseurl" + "/elements/checkbox/single_checkbox"));
+        qasinglecheckboxpage = new QAPractice_SingleCheckboxesPage(DriverFactory.getDriver()) ;
+
         log.info("URL launched");
     }
 
@@ -27,33 +30,33 @@ public class QAPractice_SingleCheckboxesTest extends BaseTest {
     public void verify_SubmitText (){
         //Verify navigation
 
-        test.info("Validating page navigation");
+        BaseTest.getTest().info("Validating page navigation");
         log.info("page Navigation");
 
         boolean navigateVerify  =qasinglecheckboxpage.navigateTo_SingleCheckBox();
         Assert.assertTrue(navigateVerify, "Invalid page");
 
-        test.pass("Page Navigated ");
+        BaseTest.getTest().info("Page Navigated ");
         log.info("Single CheckBox Field is visible");
 
     }
     @Test
     public void verify_CheckboxLabel(){
 
-        test.info("Validation of CheckBox label");
+        BaseTest.getTest().info("Validation of CheckBox label");
         log.info("Validating checkbox label");
 
         boolean checkboxlabel1= qasinglecheckboxpage.isCheckboxlabeledas("Select me or not");
         Assert.assertTrue(checkboxlabel1, "Label is invalid");
 
-        test.pass("Label is validated successfully");
+        BaseTest.getTest().info("Label is validated successfully");
         log.info("Select me or not is visible as CheckBox label");
     }
 
     @Test
     public void checkTheBoxAndSubmit(){
         //Check the CheckBox
-        test.info("Validation Checkbox selection");
+        BaseTest.getTest().info("Validation Checkbox selection");
         log.info("Checking the checkbox...");
 
         qasinglecheckboxpage.ChecktheBox();
@@ -62,7 +65,7 @@ public class QAPractice_SingleCheckboxesTest extends BaseTest {
         boolean submiteverify= qasinglecheckboxpage.issubmitmessagevisiable("select me or not");
         Assert.assertTrue(submiteverify,"Invalid Result text");
 
-        test.pass("Submitted Successfully");
+        BaseTest.getTest().info("Submitted Successfully");
 
         log.info("Submit test is visible and verified successfully- Feature branch change");
 

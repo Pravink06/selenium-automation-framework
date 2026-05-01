@@ -1,6 +1,7 @@
 package com.pravin.automation.tests;
 
 import com.pravin.automation.base.BaseTest;
+import com.pravin.automation.base.DriverFactory;
 import com.pravin.automation.pages.LoginPage;
 import com.pravin.automation.testdata.JsonTestData;
 import com.pravin.automation.utils.ConfigReader;
@@ -18,8 +19,8 @@ public class LoginTestwith_JSON extends BaseTest {
 
     @BeforeMethod
     public void  init (){
-        driver.get(ConfigReader.get("baseUrl") + "/login");
-        loginpagetestJSON = new LoginPage(driver);
+        DriverFactory.getDriver().get(ConfigReader.get("baseUrl") + "/login");
+        loginpagetestJSON = new LoginPage(DriverFactory.getDriver());
     }
 
     @Test (dataProvider = "jsonLoginData" , dataProviderClass = JsonTestData.class)

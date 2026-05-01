@@ -1,8 +1,10 @@
 package com.pravin.automation.tests;
 
 import com.pravin.automation.base.BaseTest;
+import com.pravin.automation.base.DriverFactory;
 import com.pravin.automation.pages.LoginPage;
 import com.pravin.automation.testdata.ExcelTestData;
+import com.pravin.automation.utils.ConfigReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -17,8 +19,8 @@ public class LoginTestwith_Excel extends BaseTest {
 
     @BeforeMethod
     public void init (){
-        driver.get("https://the-internet.herokuapp.com/login");
-        loginpagetestExcel = new LoginPage(driver);
+        DriverFactory.getDriver().get(ConfigReader.get("baseURL"+"/login"));
+        loginpagetestExcel = new LoginPage(DriverFactory.getDriver());
     }
 
     @Test (dataProvider = "excelLoginData", dataProviderClass = ExcelTestData.class)
@@ -30,7 +32,7 @@ public class LoginTestwith_Excel extends BaseTest {
         boolean expected = Boolean.parseBoolean(data.get("expected"));
         String message = data.get("message");
 
-        test.info("Scenario : "+ message);
+        BaseTest.getTest().info("Scenario : "+ message);
 
         loginpagetestExcel.login(user , pass);
         boolean actual = loginpagetestExcel.isLoginSuccessful();
