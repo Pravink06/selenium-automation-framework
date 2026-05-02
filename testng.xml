@@ -2,6 +2,11 @@
 
 <suite name="Automation Suite">
 
+
+    <listeners>
+        <listener class-name="com.pravin.automation.listeners.TestListener"/>
+    </listeners>
+
     <test name="Regression Tests" parallel="methods" thread-count="2">
 
         <classes>
@@ -21,3 +26,4 @@
     </test>
 
 </suite>
+
