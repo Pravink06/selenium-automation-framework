@@ -19,13 +19,15 @@ public class LoginTestwith_Excel extends BaseTest {
 
     @BeforeMethod
     public void init (){
-        DriverFactory.getDriver().get(ConfigReader.get("baseURL"+"/login"));
+        DriverFactory.getDriver().get(ConfigReader.get("baseUrl_Login"));
         loginpagetestExcel = new LoginPage(DriverFactory.getDriver());
     }
 
-    @Test (dataProvider = "excelLoginData", dataProviderClass = ExcelTestData.class)
+    @Test (dataProvider = "excelLoginData", dataProviderClass = ExcelTestData.class, retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void loginTest (Map<String, String>data){
 //                         (insted of String user, String pass)
+
+        BaseTest.getTest().info("Step execution");
 
         String user = data.get("username");
         String pass = data.get("password");

@@ -20,14 +20,15 @@ public class QAPractice_SingleCheckboxesTest extends BaseTest {
         BaseTest.getTest().info("Init Method running...");
         log.info("Url is launching...");
 
-        DriverFactory.getDriver().get(ConfigReader.get("qapractiseBaseurl" + "/elements/checkbox/single_checkbox"));
+        DriverFactory.getDriver().get(ConfigReader.get("qapractiseBaseurl_SingleChekBox"));
         qasinglecheckboxpage = new QAPractice_SingleCheckboxesPage(DriverFactory.getDriver()) ;
 
         log.info("URL launched");
     }
 
-    @Test
+    @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void verify_SubmitText (){
+        BaseTest.getTest().info("Step execution");
         //Verify navigation
 
         BaseTest.getTest().info("Validating page navigation");
@@ -40,8 +41,9 @@ public class QAPractice_SingleCheckboxesTest extends BaseTest {
         log.info("Single CheckBox Field is visible");
 
     }
-    @Test
+    @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void verify_CheckboxLabel(){
+        BaseTest.getTest().info("Step execution");
 
         BaseTest.getTest().info("Validation of CheckBox label");
         log.info("Validating checkbox label");
@@ -53,9 +55,10 @@ public class QAPractice_SingleCheckboxesTest extends BaseTest {
         log.info("Select me or not is visible as CheckBox label");
     }
 
-    @Test
+    @Test ( retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void checkTheBoxAndSubmit(){
         //Check the CheckBox
+        BaseTest.getTest().info("Step execution");
         BaseTest.getTest().info("Validation Checkbox selection");
         log.info("Checking the checkbox...");
 

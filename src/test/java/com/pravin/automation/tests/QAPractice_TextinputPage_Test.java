@@ -22,7 +22,7 @@ public class QAPractice_TextinputPage_Test extends BaseTest {
         qapage = new QAPractice_TextinputPage(DriverFactory.getDriver());
     }
 
-    @Test //Test 1 : Only navigation Validation
+    @Test  (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)//Test 1 : Only navigation Validation
     public void Valid_clickOnTextInput(){
         BaseTest.getTest().info("Opening Text Input page");
         qapage.openTextInputPage();
@@ -30,7 +30,7 @@ public class QAPractice_TextinputPage_Test extends BaseTest {
     }
 
     //Test2 : Verify the Submitted Text
-    @Test
+    @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void verify_TextInputSubmission(){
         BaseTest.getTest().info("Opening Text Input page");
         qapage.openTextInputPage();
@@ -48,7 +48,7 @@ public class QAPractice_TextinputPage_Test extends BaseTest {
     }
 
     //Test 3: Verify 25 char error
-    @Test
+    @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void verify_max25charerrormessage(){
         BaseTest.getTest().info("Opening Text Input page");
         qapage.openTextInputPage();
@@ -62,7 +62,7 @@ public class QAPractice_TextinputPage_Test extends BaseTest {
 
     }
 
-    @Test
+    @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void verify_min2charErrorMessage(){
         BaseTest.getTest().info("Opening Text Input page");
         qapage.openTextInputPage();
@@ -75,7 +75,7 @@ public class QAPractice_TextinputPage_Test extends BaseTest {
         Assert.assertTrue(qapage.iserrormessagevisiable("Please enter 2 or more characters"), "Min 2 error text failed");
     }
 
-    @Test
+    @Test(retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void verify_invalidcharerrorMessage(){
         log.info("===== TEST STARTED =====");
 

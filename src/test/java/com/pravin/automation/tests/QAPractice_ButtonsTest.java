@@ -21,16 +21,17 @@ public class QAPractice_ButtonsTest extends BaseTest {
         BaseTest.getTest().info("Init Method started running");
         log.info("Init Method started running");
 
-        DriverFactory.getDriver().get(ConfigReader.get("qapractiseBaseurl" +"/elements/button/simple" ));
+        DriverFactory.getDriver().get(ConfigReader.get("qapractiseBaseurl_buttonSimple"));
 
         BaseTest.getTest().info("URL launched");
         log.info("URL launched");
         qabuttonspage = new QAPractice_ButtonsPage(DriverFactory.getDriver());
     }
 
-    @Test
+    @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     //navigation validation , Click Button label text and Button submission text
     public void E2EbuttonClick (){
+        BaseTest.getTest().info("Step execution");
         BaseTest.getTest().info("TC: E2EbuttonClick Running");
         log.info("TC: E2EbuttonClick Running");
 

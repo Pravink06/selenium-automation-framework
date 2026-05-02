@@ -12,33 +12,40 @@ import java.lang.reflect.Method;
 
 public class BaseTest {
 
+    //  Single report instance for entire execution
     protected static ExtentReports extent;
 
-    // ✅ ThreadLocal for ExtentTest
+    //  Thread-safe test instance (parallel execution safe)
     private static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
 
     @BeforeSuite(alwaysRun = true)
     public void setupReport() {
+        // Initialize report once before suite
         extent = ExtentManager.getInstance();
     }
 
     @BeforeMethod(alwaysRun = true)
     public void setup(Method method) {
 
+        //  Safety check (avoid null in parallel edge cases)
         if (extent == null) {
             extent = ExtentManager.getInstance();
         }
 
-        // Driver init
+        //  Initialize driver (ThreadLocal inside DriverFactory)
         DriverFactory.initDriver();
         DriverFactory.getDriver().manage().window().maximize();
 
-        // ✅ FIX: set ThreadLocal properly
-        ExtentTest extentTest = extent.createTest(method.getName());
+        //  Create test entry with thread info (important for parallel debug)
+        ExtentTest extentTest = extent.createTest(
+                method.getName() + " | Thread-" + Thread.currentThread().getId()
+        );
+
+        // Store test instance thread-wise
         test.set(extentTest);
     }
 
-    // ✅ Getter (MANDATORY)
+    //  Getter to access ExtentTest anywhere
     public static ExtentTest getTest() {
         return test.get();
     }
@@ -48,10 +55,19 @@ public class BaseTest {
 
         WebDriver driver = DriverFactory.getDriver();
 
+        // Read retry count from TestNG context
+        Object retryObj = result.getAttribute("retryCount");
+        int retryCount = (retryObj != null) ? (int) retryObj : 0;
+
+        // ==============================
+        //  FAILURE
+        // ==============================
         if (result.getStatus() == ITestResult.FAILURE) {
 
+            // Capture screenshot on failure
             String screenshotPath = ScreenshotUtil.captureScreenshot(driver, result.getName());
 
+            //  Log failure
             getTest().fail(result.getThrowable());
 
             try {
@@ -60,22 +76,44 @@ public class BaseTest {
                 e.printStackTrace();
             }
 
-        } else if (result.getStatus() == ITestResult.SUCCESS) {
+            // If failed after retries → show retry info
+            if (retryCount > 0) {
+                getTest().info("Test retried " + retryCount + " times but still FAILED");
+            }
+
+        }
+
+        // ==============================
+        // SUCCESS
+        // ==============================
+        else if (result.getStatus() == ITestResult.SUCCESS) {
 
             getTest().pass("Test Passed");
 
-        } else {
+            //  If passed after retry → mark as FLAKY
+            if (retryCount > 0) {
+                getTest().warning("FLAKY TEST ⚠️ - Passed after " + retryCount + " retries");
+            }
+        }
+
+        // ==============================
+        // SKIPPED
+        // ==============================
+        else {
 
             getTest().skip("Test Skipped");
         }
 
-        // Cleanup
+        //  Clean up driver (ThreadLocal quit)
         DriverFactory.quitDriver();
-        test.remove(); // 🔥 VERY IMPORTANT (memory leak prevention)
+
+        //  VERY IMPORTANT → remove ThreadLocal to avoid memory leak
+        test.remove();
     }
 
     @AfterSuite(alwaysRun = true)
     public void flushReport() {
+        // Flush report once after execution
         extent.flush();
     }
 }

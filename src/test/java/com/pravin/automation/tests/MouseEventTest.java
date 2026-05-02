@@ -19,15 +19,16 @@ public class MouseEventTest extends BaseTest {
         public void init (){
 
         BaseTest.getTest().info("Init Method started running");
-        DriverFactory.getDriver().get(ConfigReader.get("baseURL")+"/login");
+        DriverFactory.getDriver().get(ConfigReader.get("MouseEventHoveroverURL"));
 
         BaseTest.getTest().info("URL launched");
         log.info("URL launched");
         mouseEventPage = new MouseEventPage(DriverFactory.getDriver());
     }
 
-    @Test
+    @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     void verify_mouseMove (){
+        BaseTest.getTest().info("Step execution");
 
         BaseTest.getTest().info("Move to Element");
         log.info("Doing Hover over");

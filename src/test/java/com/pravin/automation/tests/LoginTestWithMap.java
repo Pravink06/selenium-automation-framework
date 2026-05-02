@@ -28,8 +28,9 @@ public class LoginTestWithMap extends BaseTest {
         loginpagewithMap = new LoginPage(DriverFactory.getDriver());
     }
 
-    @Test (dataProvider = "loginDataMap" , dataProviderClass = TestData_Map.class)
+    @Test (dataProvider = "loginDataMap" , dataProviderClass = TestData_Map.class, retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void loginTest (Map<String , Object> data){
+        BaseTest.getTest().info("Step execution");
 
         String user = data.get("username").toString();
         String pass = data.get("password").toString();
