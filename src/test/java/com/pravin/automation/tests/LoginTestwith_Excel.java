@@ -27,14 +27,14 @@ public class LoginTestwith_Excel extends BaseTest {
     public void loginTest (Map<String, String>data){
 //                         (insted of String user, String pass)
 
-        BaseTest.getTest().info("Step execution");
+
 
         String user = data.get("username");
         String pass = data.get("password");
         boolean expected = Boolean.parseBoolean(data.get("expected"));
         String message = data.get("message");
 
-        BaseTest.getTest().info("Scenario : "+ message);
+
 
         loginpagetestExcel.login(user , pass);
         boolean actual = loginpagetestExcel.isLoginSuccessful();

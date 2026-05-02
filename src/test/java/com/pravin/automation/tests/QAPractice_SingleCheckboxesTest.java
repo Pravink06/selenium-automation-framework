@@ -17,7 +17,7 @@ public class QAPractice_SingleCheckboxesTest extends BaseTest {
 
     @BeforeMethod
     public void init(){
-        BaseTest.getTest().info("Init Method running...");
+
         log.info("Url is launching...");
 
         DriverFactory.getDriver().get(ConfigReader.get("qapractiseBaseurl_SingleChekBox"));
@@ -28,38 +28,37 @@ public class QAPractice_SingleCheckboxesTest extends BaseTest {
 
     @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void verify_SubmitText (){
-        BaseTest.getTest().info("Step execution");
+
         //Verify navigation
 
-        BaseTest.getTest().info("Validating page navigation");
+
         log.info("page Navigation");
 
         boolean navigateVerify  =qasinglecheckboxpage.navigateTo_SingleCheckBox();
         Assert.assertTrue(navigateVerify, "Invalid page");
 
-        BaseTest.getTest().info("Page Navigated ");
+
         log.info("Single CheckBox Field is visible");
 
     }
     @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void verify_CheckboxLabel(){
-        BaseTest.getTest().info("Step execution");
 
-        BaseTest.getTest().info("Validation of CheckBox label");
+
+
         log.info("Validating checkbox label");
 
         boolean checkboxlabel1= qasinglecheckboxpage.isCheckboxlabeledas("Select me or not");
         Assert.assertTrue(checkboxlabel1, "Label is invalid");
 
-        BaseTest.getTest().info("Label is validated successfully");
+
         log.info("Select me or not is visible as CheckBox label");
     }
 
     @Test ( retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void checkTheBoxAndSubmit(){
         //Check the CheckBox
-        BaseTest.getTest().info("Step execution");
-        BaseTest.getTest().info("Validation Checkbox selection");
+
         log.info("Checking the checkbox...");
 
         qasinglecheckboxpage.ChecktheBox();
@@ -68,7 +67,7 @@ public class QAPractice_SingleCheckboxesTest extends BaseTest {
         boolean submiteverify= qasinglecheckboxpage.issubmitmessagevisiable("select me or not");
         Assert.assertTrue(submiteverify,"Invalid Result text");
 
-        BaseTest.getTest().info("Submitted Successfully");
+
 
         log.info("Submit test is visible and verified successfully- Feature branch change");
 

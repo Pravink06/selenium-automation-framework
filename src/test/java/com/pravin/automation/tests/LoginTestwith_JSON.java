@@ -25,7 +25,7 @@ public class LoginTestwith_JSON extends BaseTest {
 
     @Test (dataProvider = "jsonLoginData" , dataProviderClass = JsonTestData.class , retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class )
     public void loginTest (Map <String, Object> data){
-        BaseTest.getTest().info("Step execution");
+
 
         Map<String, Object> user = (Map<String, Object>) data.get("user");
         Map<String, Object> expected = (Map<String, Object>) data.get("expected");

@@ -18,24 +18,24 @@ public class MouseEventTest extends BaseTest {
     @BeforeMethod
         public void init (){
 
-        BaseTest.getTest().info("Init Method started running");
+
         DriverFactory.getDriver().get(ConfigReader.get("MouseEventHoveroverURL"));
 
-        BaseTest.getTest().info("URL launched");
+
         log.info("URL launched");
         mouseEventPage = new MouseEventPage(DriverFactory.getDriver());
     }
 
     @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     void verify_mouseMove (){
-        BaseTest.getTest().info("Step execution");
 
-        BaseTest.getTest().info("Move to Element");
+
+
         log.info("Doing Hover over");
         mouseEventPage.tooltipstatus();
         String actulstatus= mouseEventPage.gettooltipstatus();
         Assert.assertTrue(actulstatus.contains("Tooltip Visible"));
-        BaseTest.getTest().info("Tool tip Visible successfully");
+
         log.info("Tool tip is visible. (This log is changed to  Professional commit)");
     }
 

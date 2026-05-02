@@ -24,7 +24,7 @@ public class QAPractice_TextinputPage_Test extends BaseTest {
 
     @Test  (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)//Test 1 : Only navigation Validation
     public void Valid_clickOnTextInput(){
-        BaseTest.getTest().info("Opening Text Input page");
+
         qapage.openTextInputPage();
         Assert.assertTrue(qapage.isTextInputPageOpened(), "Text Input page not opened");
     }
@@ -32,31 +32,31 @@ public class QAPractice_TextinputPage_Test extends BaseTest {
     //Test2 : Verify the Submitted Text
     @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void verify_TextInputSubmission(){
-        BaseTest.getTest().info("Opening Text Input page");
+
         qapage.openTextInputPage();
         Assert.assertTrue(qapage.isTextInputPageOpened(), "Text Input page not opened");
 
-        BaseTest.getTest().info("Entering text: Pravin_Kolkar");
+
         qapage.enterTextAndSubmit("Pravin_Kolkar");
-        BaseTest.getTest().info("Validating entered text is displayed");
+
 
         boolean result = qapage.isenteredTextVisiable("Pravin_Kolkar");
 
         Assert.assertTrue(result, "Entered text not visible in result");
-        BaseTest.getTest().info("Text input submission verified successfully");
+
 
     }
 
     //Test 3: Verify 25 char error
     @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void verify_max25charerrormessage(){
-        BaseTest.getTest().info("Opening Text Input page");
+
         qapage.openTextInputPage();
         Assert.assertTrue(qapage.isTextInputPageOpened(), "Text Input page not opened");
 
-        BaseTest.getTest().info("Entering text");
+
         qapage.enterTextAndSubmit("poiuytrewqasdfghjklmnbvcxzasqwed");
-        BaseTest.getTest().info("Text entered successfully");
+
 
         Assert.assertTrue(qapage.iserrormessagevisiable("Please enter no more than 25 characters") , "Max 25 error text failed");
 
@@ -64,13 +64,13 @@ public class QAPractice_TextinputPage_Test extends BaseTest {
 
     @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
     public void verify_min2charErrorMessage(){
-        BaseTest.getTest().info("Opening Text Input page");
+
         qapage.openTextInputPage();
         Assert.assertTrue(qapage.isTextInputPageOpened(), "Text Input page not opened");
 
-        BaseTest.getTest().info("Entering text");
+
         qapage.enterTextAndSubmit("q");
-        BaseTest.getTest().info("Text entered successfully");
+
 
         Assert.assertTrue(qapage.iserrormessagevisiable("Please enter 2 or more characters"), "Min 2 error text failed");
     }
@@ -85,7 +85,7 @@ public class QAPractice_TextinputPage_Test extends BaseTest {
 
 
         log.info("Entering text");
-        qapage.enterTextAndSubmit("@@1");
+        qapage.enterTextAndSubmit("@@3");
 
 
 

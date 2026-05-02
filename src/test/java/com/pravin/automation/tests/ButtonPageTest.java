@@ -2,6 +2,7 @@ package com.pravin.automation.tests;
 
 import com.pravin.automation.base.BaseTest;
 import com.pravin.automation.base.DriverFactory;
+import com.pravin.automation.listeners.TestListener;
 import com.pravin.automation.pages.ButtonPage;
 import com.pravin.automation.utils.ConfigReader;
 import org.apache.logging.log4j.LogManager;
@@ -23,7 +24,7 @@ public class ButtonPageTest extends BaseTest {
 
     @Test (retryAnalyzer = com.pravin.automation.retry.RetryAnalyzer.class)
         public void click_shouldclick (){
-        BaseTest.getTest().info("Step execution");
+
         log.info("Clicking on button");
         buttonPage.clickbutton();
         log.info("Clicked on button and getting text -Dummy change : Wrong Commit to revert feature ");
