@@ -91,6 +91,32 @@ Supports multiple data sources:
 
 ---
 
+###  9.  Challenges Solved
+- Handled ElementClickInterceptedException using explicit waits & safe click
+- Stabilized tests for CI environment (headless execution)
+- Fixed parallel execution issues using ThreadLocal
+- Implemented retry + reporting integration for flaky tests
+
+---
+
+###  10. Key Learnings
+- Difference between local vs CI execution behavior
+- Importance of synchronization in Selenium
+- Thread safety in parallel execution
+- Clean framework design vs messy implementation
+- Debugging pipeline failures using logs
+
+---
+
+### 11. Future Improvements
+- Docker integration
+- Selenium Grid setup
+- Allure reporting
+- API + UI combined testing
+
+---
+
+
 ##  How to Run Tests
 
 ###  Run Locally
@@ -119,28 +145,9 @@ After execution:
 /test-output/ExtentReport.html
 
 
-##  Challenges Solved
-Handled ElementClickInterceptedException using explicit waits & safe click
-Stabilized tests for CI environment (headless execution)
-Fixed parallel execution issues using ThreadLocal
-Implemented retry + reporting integration for flaky tests
+---
 
-
-## Key Learnings
-Difference between local vs CI execution behavior
-Importance of synchronization in Selenium
-Thread safety in parallel execution
-Clean framework design vs messy implementation
-Debugging pipeline failures using logs
-
-
-## Future Improvements
-Docker integration
-Selenium Grid setup
-Allure reporting
-API + UI combined testing
-
-## Author
+### Author
 Pravin Kolkar
 Automation QA Engineer (SDET Track)
 pravinkolkar06@gmail.com
